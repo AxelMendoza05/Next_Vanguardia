@@ -1,0 +1,20 @@
+.input {
+  margin: 5px;
+  background: none;
+  border: none;
+  outline: none;
+  max-width: 200px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 100px;
+  box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+  color: black;
+  background-color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
