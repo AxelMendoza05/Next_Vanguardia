@@ -21,17 +21,26 @@
 
 .modalPopup {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 30%;
+  left: 40%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
+  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  max-width: 90%;
-  width: 400px;
+  width: 80%;
+  max-width: 500px;
   text-align: center;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -moz-transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -ms-transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  -o-transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+@media (max-width: 600px) {
+  .modalPopup {
+    width: 100%;
+  }
 }
 
 .modalBackground.open {

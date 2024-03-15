@@ -1,12 +1,31 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "@/src/components/Button";
 import Modal from "@/src/components/Modal";
+import NewBooks from "@/src/components/FormNewBooks";
 import "@/src/assets/Styles/Pages.css";
 import "@/src/assets/Styles/Modal.css";
+import { postBook } from "@/src/Services/BooksAxios";
 
 export default function NewBook() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+  const [bookDetails, setBookDetails] = useState({
+    id: "",
+    name: "",
+    author: "",
+    num_pages: "",
+    date_published: "",
+    publisher: "",
+    isbn: "",
+    gender: "",
+    comments: "",
+    edition: "",
+  });
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleButton = () => {
     setIsModalOpen(true);
@@ -16,9 +35,18 @@ export default function NewBook() {
     setIsModalOpen(false);
   };
 
-  const addBook = () => {
-    console.log("Add Book");
+  const addBook = async () => {
+    await postBook(bookDetails);
+    setIsModalOpen(false);
   };
+
+  const isBookDetailsEmpty = Object.values(bookDetails).some(
+    (x) => x === null || x === ""
+  );
+
+  if (!isClient) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="fullScreenCenter">
@@ -29,11 +57,23 @@ export default function NewBook() {
           <Modal
             className={`modalPopup ${isModalOpen ? "open" : ""}`}
             title="New Book"
-            body="Modal Body"
+            body={<NewBooks setBookDetails={setBookDetails} />}
             buttons={[
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <Button text="Close" onClick={closeModal} />,
-                <Button text="Add Book" onClick={addBook} />,
+              <div
+                key="buttonDiv"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Button key="closeButton" text="Close" onClick={closeModal} />
+                <Button
+                  key="addBookButton"
+                  text="Add Book"
+                  onClick={addBook}
+                  disabled={isBookDetailsEmpty}
+                />
               </div>,
             ]}
           />

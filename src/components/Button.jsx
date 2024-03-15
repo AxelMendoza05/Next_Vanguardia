@@ -1,4 +1,4 @@
-
+"use client";
 import "../assets/Styles/Button.css";
 const Button = ({ onClick, text, disabled }) => {
   return (
